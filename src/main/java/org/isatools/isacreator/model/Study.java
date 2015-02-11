@@ -37,10 +37,9 @@
 
 package org.isatools.isacreator.model;
 
-import org.isatools.isacreator.managers.ApplicationManager;
-import org.isatools.isacreator.gui.AssaySpreadsheet;
 import org.isatools.isacreator.gui.reference.DataEntryReferenceObject;
 import org.isatools.isacreator.io.importisa.investigationproperties.InvestigationFileSection;
+import org.isatools.isacreator.managers.ApplicationManager;
 
 import java.util.*;
 
@@ -369,13 +368,13 @@ public class Study extends ISASection {
      * @param factorName - the factor to be located and removed
      */
     public void removeFactor(String factorName) {
-        for (String key : assays.keySet()) {
-            ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(assays.get(key))).getSpreadsheet()
-                    .getSpreadsheetFunctions().removeColumnByName("Factor Value[" + factorName + "]");
-        }
-
-        ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(studySampleRecord)).getSpreadsheet()
-                .getSpreadsheetFunctions().removeColumnByName("Factor Value[" + factorName + "]");
+//        for (String key : assays.keySet()) {
+//            ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(assays.get(key))).getSpreadsheet()
+//                    .getSpreadsheetFunctions().removeColumnByName("Factor Value[" + factorName + "]");
+//        }
+//
+//        ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(studySampleRecord)).getSpreadsheet()
+//                .getSpreadsheetFunctions().removeColumnByName("Factor Value[" + factorName + "]");
 
         Factor toRemove = null;
 
@@ -442,54 +441,54 @@ public class Study extends ISASection {
      * @param previousFactorName - The factor name which would exist in the current tables
      * @param newFactorName      - the values to replace the old factor names with
      */
-    public void replaceFactors(String previousFactorName, String newFactorName) {
-        previousFactorName = "Factor Value[" + previousFactorName + "]";
-        newFactorName = "Factor Value[" + newFactorName + "]";
+//    public void replaceFactors(String previousFactorName, String newFactorName) {
+//        previousFactorName = "Factor Value[" + previousFactorName + "]";
+//        newFactorName = "Factor Value[" + newFactorName + "]";
+//
+//        for (String key : assays.keySet()) {
+//            ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(assays.get(key))).getSpreadsheet()
+//                    .getSpreadsheetFunctions().substituteHeaderNames(previousFactorName, newFactorName);
+//        }
+//        // update for the sample record
+//        ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(studySampleRecord)).getSpreadsheet()
+//                .getSpreadsheetFunctions().substituteHeaderNames(previousFactorName, newFactorName);
+//    }
 
-        for (String key : assays.keySet()) {
-            ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(assays.get(key))).getSpreadsheet()
-                    .getSpreadsheetFunctions().substituteHeaderNames(previousFactorName, newFactorName);
-        }
-        // update for the sample record
-        ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(studySampleRecord)).getSpreadsheet()
-                .getSpreadsheetFunctions().substituteHeaderNames(previousFactorName, newFactorName);
-    }
-
-    /**
-     * Replaces all previously entered protocols with its substituted value.
-     *
-     * @param previousProtocolName - protocol with the name to find
-     * @param newProtocolName      - new protocol to be used
-     */
-    public void replaceProtocols(String previousProtocolName,
-                                 String newProtocolName) {
-        for (String key : assays.keySet()) {
-            ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(assays.get(key))).getSpreadsheet()
-                    .getSpreadsheetFunctions().substituteTermsInColumn("Protocol REF",
-                    previousProtocolName, newProtocolName);
-        }
-
-        ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(studySampleRecord)).getSpreadsheet()
-                .getSpreadsheetFunctions().substituteTermsInColumn("Protocol REF",
-                previousProtocolName, newProtocolName);
-
-        if (newProtocolName.equals("")) {
-            // we are removing the protocol
-            Protocol toRemove = null;
-
-            for (Protocol p : protocols) {
-                if (p.getProtocolName().equals(previousProtocolName)) {
-                    toRemove = p;
-
-                    break;
-                }
-            }
-
-            if (toRemove != null) {
-                protocols.remove(toRemove);
-            }
-        }
-    }
+//    /**
+//     * Replaces all previously entered protocols with its substituted value.
+//     *
+//     * @param previousProtocolName - protocol with the name to find
+//     * @param newProtocolName      - new protocol to be used
+//     */
+//    public void replaceProtocols(String previousProtocolName,
+//                                 String newProtocolName) {
+//        for (String key : assays.keySet()) {
+//            ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(assays.get(key))).getSpreadsheet()
+//                    .getSpreadsheetFunctions().substituteTermsInColumn("Protocol REF",
+//                    previousProtocolName, newProtocolName);
+//        }
+//
+//        ((AssaySpreadsheet) ApplicationManager.getUserInterfaceForISASection(studySampleRecord)).getSpreadsheet()
+//                .getSpreadsheetFunctions().substituteTermsInColumn("Protocol REF",
+//                previousProtocolName, newProtocolName);
+//
+//        if (newProtocolName.equals("")) {
+//            // we are removing the protocol
+//            Protocol toRemove = null;
+//
+//            for (Protocol p : protocols) {
+//                if (p.getProtocolName().equals(previousProtocolName)) {
+//                    toRemove = p;
+//
+//                    break;
+//                }
+//            }
+//
+//            if (toRemove != null) {
+//                protocols.remove(toRemove);
+//            }
+//        }
+//    }
 
     public void setAssays(Map<String, Assay> assays) {
         this.assays = assays;

@@ -48,7 +48,7 @@ public class ImportConfiguration {
             log.info("Setting config dir with " + configDir);
 
             ConfigurationManager.loadConfigurations(configDir);
-            ApplicationManager.setCurrentDataReferenceObject();
+            //ApplicationManager.setCurrentDataReferenceObject();
             ISAcreatorProperties.setProperty(ISAcreatorProperties.CURRENT_CONFIGURATION, new File(configDir).getAbsolutePath());
         }else{
             System.out.println(configParser.getProblemLog());

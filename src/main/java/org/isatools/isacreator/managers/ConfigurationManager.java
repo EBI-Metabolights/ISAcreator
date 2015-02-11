@@ -1,6 +1,5 @@
 package org.isatools.isacreator.managers;
 
-import org.isatools.isacreator.autofiltercombo.AutoFilterComboCellEditor;
 import org.isatools.isacreator.configuration.MappingObject;
 import org.isatools.isacreator.configuration.io.ConfigXMLParser;
 import org.isatools.isacreator.spreadsheet.model.TableReferenceObject;
@@ -67,30 +66,30 @@ public class ConfigurationManager {
 
     }
 
-    /**
-     * Retrieves technology types
-     *
-     * @return array of strings
-     */
-    public static String[] getTechnologyTypes() {
-        List<MappingObject> assayToTypeMapping = getMappings();
-        Set<String> techTypeSet = new HashSet<String>();
-
-        for (MappingObject mo : assayToTypeMapping) {
-            if (!mo.getTechnologyType().equals("n/a") && !mo.getTechnologyType().equals("")) {
-                techTypeSet.add(mo.getTechnologyType());
-            }
-        }
-
-        List<String> tempTechTypes = new ArrayList<String>();
-        tempTechTypes.addAll(techTypeSet);
-
-        Collections.sort(tempTechTypes);
-
-        tempTechTypes.add(0, AutoFilterComboCellEditor.BLANK_VALUE);
-
-        return tempTechTypes.toArray(new String[tempTechTypes.size()]);
-    }
+//    /**
+//     * Retrieves technology types
+//     *
+//     * @return array of strings
+//     */
+//    public static String[] getTechnologyTypes() {
+//        List<MappingObject> assayToTypeMapping = getMappings();
+//        Set<String> techTypeSet = new HashSet<String>();
+//
+//        for (MappingObject mo : assayToTypeMapping) {
+//            if (!mo.getTechnologyType().equals("n/a") && !mo.getTechnologyType().equals("")) {
+//                techTypeSet.add(mo.getTechnologyType());
+//            }
+//        }
+//
+//        List<String> tempTechTypes = new ArrayList<String>();
+//        tempTechTypes.addAll(techTypeSet);
+//
+//        Collections.sort(tempTechTypes);
+//
+//        tempTechTypes.add(0, AutoFilterComboCellEditor.BLANK_VALUE);
+//
+//        return tempTechTypes.toArray(new String[tempTechTypes.size()]);
+//    }
 
     /**
      * Retrives the allowed technologies per endpoint

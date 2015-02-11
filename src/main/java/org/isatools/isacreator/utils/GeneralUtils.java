@@ -39,7 +39,6 @@ package org.isatools.isacreator.utils;
 
 import org.apache.log4j.Logger;
 import org.isatools.isacreator.configuration.FieldObject;
-import org.isatools.isacreator.gui.ISAcreator;
 import org.isatools.isacreator.model.GeneralFieldTypes;
 import org.isatools.isacreator.spreadsheet.model.TableReferenceObject;
 import uk.ac.ebi.utils.io.DownloadUtils;
