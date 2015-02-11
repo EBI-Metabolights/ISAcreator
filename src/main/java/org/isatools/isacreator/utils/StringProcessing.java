@@ -37,6 +37,9 @@
 
 package org.isatools.isacreator.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.BreakIterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,6 +54,7 @@ import java.util.regex.Pattern;
 
 public class StringProcessing {
 
+    private static final Logger logger = LoggerFactory.getLogger(StringProcessing.class);
 
     /**
      * This method recursively replaces String substitution text with values found in an Array of Strings.

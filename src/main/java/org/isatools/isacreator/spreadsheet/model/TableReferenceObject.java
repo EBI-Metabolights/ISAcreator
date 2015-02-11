@@ -53,6 +53,8 @@ import org.isatools.isacreator.ontologymanager.utils.OntologyTermUtils;
 import org.isatools.isacreator.settings.ISAcreatorProperties;
 import org.isatools.isacreator.spreadsheet.StringValidation;
 import org.isatools.isacreator.spreadsheet.ValidationObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.*;
@@ -66,6 +68,7 @@ import java.util.*;
  * @author <a href="mailto:alejandra.gonzalez.beltran@gmail.com">Alejandra Gonzalez-Beltran</a>
  */
 public class TableReferenceObject implements Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(TableReferenceObject.class);
     public static final String ROW_NO_TEXT = "Row No.";
 
     private String tableName;
@@ -232,7 +235,7 @@ public class TableReferenceObject implements Serializable {
             if (!fo.isHidden()) {
                 finalFields.add(fo.getFieldName());
             } else {
-                System.out.println("Not adding " + fo.getFieldName());
+                logger.debug("Not adding " + fo.getFieldName());
             }
         }
 

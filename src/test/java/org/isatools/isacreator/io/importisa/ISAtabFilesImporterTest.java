@@ -1,6 +1,7 @@
 package org.isatools.isacreator.io.importisa;
 
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.isatools.errorreporter.model.ErrorMessage;
 import org.isatools.errorreporter.model.ISAFileErrorReport;
 import org.isatools.isacreator.io.CommonTestIO;
@@ -30,7 +31,7 @@ import static junit.framework.Assert.assertTrue;
 public class ISAtabFilesImporterTest implements CommonTestIO {
 
     private String configDir = null;
-    private static Logger log = Logger.getLogger(ISAtabFilesImporterTest.class);
+    private static Logger log = LoggerFactory.getLogger(ISAtabFilesImporterTest.class);
 
 
     private ISAtabFilesImporter importer = null;
@@ -68,20 +69,20 @@ public class ISAtabFilesImporterTest implements CommonTestIO {
         assert (inv != null);
 
         for (ISAFileErrorReport report : importer.getMessages()) {
-            System.out.println(report.getFileName());
+            logger.debug(report.getFileName());
             for (ErrorMessage message : report.getMessages()) {
-                System.out.println(message.getErrorLevel().toString() + " > " + message.getMessage());
+                logger.debug(message.getErrorLevel().toString() + " > " + message.getMessage());
             }
         }
 
         //if import worked ok, there should not be error messages
         assert (importer.getMessages().size() == 0);
 
-        System.out.println("ontologies used=" + OntologyManager.getOntologiesUsed());
-        System.out.println("ontology description=" + OntologyManager.getOntologyDescription("OBI"));
-        //System.out.println("ontology selection history=" + OntologyManager.getOntologySelectionHistory());
-        System.out.println("ontology selection history size=" + OntologyManager.getOntologyTermsSize());
-        System.out.println("ontology term=" + OntologyManager.getOntologyTerm("OBI:metabolite profiling"));
+        logger.debug("ontologies used=" + OntologyManager.getOntologiesUsed());
+        logger.debug("ontology description=" + OntologyManager.getOntologyDescription("OBI"));
+        //logger.debug("ontology selection history=" + OntologyManager.getOntologySelectionHistory());
+        logger.debug("ontology selection history size=" + OntologyManager.getOntologyTermsSize());
+        logger.debug("ontology term=" + OntologyManager.getOntologyTerm("OBI:metabolite profiling"));
 
         assertTrue("Oh no, I didnt' get the expected number of studies :(", inv.getStudies().size() == 2);
 

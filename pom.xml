@@ -5,7 +5,7 @@
     <artifactId>ISAcreator-api</artifactId>
     <version>1.7.7</version>
     <name>ISAcreator API</name>
-    <description>Light version of ISAcreator unbundled to be use as an ISAtab files API.</description>
+    <description>Light version of ISAcreator unbundled to be used as an ISAtab API to load files.</description>
     <url>http://www.isa-tools.org</url>
 
     <developers>
@@ -23,6 +23,13 @@
             <email>alejandra.gonzalez.beltran@gmail.com</email>
             <organization>ISA tools team</organization>
             <organizationUrl>http://isa-tools.org</organizationUrl>
+        </developer>
+
+        <developer>
+            <id>pconesa</id>
+            <name>Pablo Conesa</name>
+            <organization>MetaboLights team</organization>
+            <organizationUrl>http://www.metabolights.org</organizationUrl>
         </developer>
 
     </developers>
@@ -167,10 +174,17 @@
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>1.7.7</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>junit</groupId>
@@ -183,6 +197,12 @@
             <groupId>org.isatools</groupId>
             <artifactId>ISAtabErrorReporter</artifactId>
             <version>0.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -201,9 +221,12 @@
 
         <dependency>
             <groupId>org.isatools</groupId>
-            <artifactId>import_layer</artifactId>
-            <version>1.6.5</version>
+            <artifactId>import_layer_MTBLS_API</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
             <exclusions>
+
                 <exclusion>
                     <groupId>uk.ac.ebi</groupId>
                     <artifactId>ols</artifactId>
@@ -224,8 +247,65 @@
                     <artifactId>ISAtabErrorReporter</artifactId>
                 </exclusion>
 
+                <exclusion>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-dbcp</artifactId>
+                    <groupId>commons-dbcp</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ojdbc5</artifactId>
+                    <groupId>com.oracle</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>h2</artifactId>
+                    <groupId>com.h2database</groupId>
+                </exclusion>
+
             </exclusions>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.isatools</groupId>-->
+            <!--<artifactId>import_layer</artifactId>-->
+            <!--<version>1.6.5</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>uk.ac.ebi</groupId>-->
+                    <!--<artifactId>ols</artifactId>-->
+                <!--</exclusion>-->
+
+                <!--<exclusion>-->
+                    <!--<groupId>uk.ac.ebi</groupId>-->
+                    <!--<artifactId>jutils</artifactId>-->
+                <!--</exclusion>-->
+
+                <!--<exclusion>-->
+                    <!--<groupId>cpdetector</groupId>-->
+                    <!--<artifactId>cpdetector</artifactId>-->
+                <!--</exclusion>-->
+
+                <!--<exclusion>-->
+                    <!--<groupId>org.isatools</groupId>-->
+                    <!--<artifactId>ISAtabErrorReporter</artifactId>-->
+                <!--</exclusion>-->
+
+            <!--</exclusions>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.apache.commons</groupId>

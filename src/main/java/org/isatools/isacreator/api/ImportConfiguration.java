@@ -1,10 +1,10 @@
 package org.isatools.isacreator.api;
 
-import org.apache.log4j.Logger;
 import org.isatools.isacreator.configuration.io.ConfigXMLParser;
-import org.isatools.isacreator.managers.ApplicationManager;
 import org.isatools.isacreator.managers.ConfigurationManager;
 import org.isatools.isacreator.settings.ISAcreatorProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -23,7 +23,7 @@ public class ImportConfiguration {
     private ConfigXMLParser configParser = null;
     private String configDir = null;
 
-    private static Logger log = Logger.getLogger(ImportConfiguration.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(ImportConfiguration.class.getName());
 
     public ImportConfiguration(String cDir){
         configDir = cDir;
@@ -41,17 +41,17 @@ public class ImportConfiguration {
 
         if (!configParser.isProblemsEncountered()){
 
-            log.info("Setting Assay definitions with " + configParser.getTables().size() + " tables.");
+            logger.info("Setting Assay definitions with " + configParser.getTables().size() + " tables.");
             ConfigurationManager.setAssayDefinitions(configParser.getTables());
-            log.info("Setting Assay definitions with " + configParser.getMappings().size() + " mappings.");
+            logger.info("Setting Assay definitions with " + configParser.getMappings().size() + " mappings.");
             ConfigurationManager.setMappings(configParser.getMappings());
-            log.info("Setting config dir with " + configDir);
+            logger.info("Setting config dir with " + configDir);
 
             ConfigurationManager.loadConfigurations(configDir);
             //ApplicationManager.setCurrentDataReferenceObject();
             ISAcreatorProperties.setProperty(ISAcreatorProperties.CURRENT_CONFIGURATION, new File(configDir).getAbsolutePath());
         }else{
-            System.out.println(configParser.getProblemLog());
+            logger.debug(configParser.getProblemLog());
         }
 
         return !configParser.isProblemsEncountered();

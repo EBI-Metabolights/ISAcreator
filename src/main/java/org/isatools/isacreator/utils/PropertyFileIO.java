@@ -37,7 +37,8 @@
 
 package org.isatools.isacreator.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.isatools.isacreator.settings.ISAcreatorProperties;
 
 import java.io.*;
@@ -50,7 +51,7 @@ import java.util.Properties;
 
 
 public class PropertyFileIO {
-    private static final Logger log = Logger.getLogger(PropertyFileIO.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(PropertyFileIO.class.getName());
 
 
     public static final String SETTINGS_DIR = "Settings";

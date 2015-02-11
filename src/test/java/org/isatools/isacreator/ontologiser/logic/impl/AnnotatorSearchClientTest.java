@@ -14,7 +14,7 @@ public class AnnotatorSearchClientTest {
 
     @Test
     public void testAnnotatorClient() {
-         System.out.println("_____Testing NCBO Annotator search client____");
+         logger.debug("_____Testing NCBO Annotator search client____");
         AnnotatorSearchClient sc = new AnnotatorSearchClient();
 
         Set<String> testTerms = new HashSet<String>();
@@ -27,9 +27,9 @@ public class AnnotatorSearchClientTest {
         Map<String, Map<String, AnnotatorResult>> result = sc.searchForTerms(testTerms);
 
         for (String key : result.keySet()) {
-            System.out.println(key + " matched:");
+            logger.debug(key + " matched:");
             for (String ontologyId : result.get(key).keySet()) {
-                System.out.println("\t" + ontologyId + " -> " + result.get(key).get(ontologyId).getOntologyTerm().getOntologyTermName() + " (" + result.get(key).get(ontologyId).getOntologySource().getOntologyDisplayLabel() + ")");
+                logger.debug("\t" + ontologyId + " -> " + result.get(key).get(ontologyId).getOntologyTerm().getOntologyTermName() + " (" + result.get(key).get(ontologyId).getOntologySource().getOntologyDisplayLabel() + ")");
             }
         }
 

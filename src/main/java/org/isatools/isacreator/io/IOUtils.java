@@ -3,6 +3,8 @@ package org.isatools.isacreator.io;
 import org.isatools.isacreator.ontologymanager.OntologyManager;
 import org.isatools.isacreator.ontologymanager.common.OntologyTerm;
 import org.isatools.isacreator.settings.ISAcreatorProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +24,7 @@ public class IOUtils {
     public static final String TERM = "term";
     public static final String SOURCE_REF = "term source";
     public static final String ACCESSION = "term accession";
+    private static final Logger logger = LoggerFactory.getLogger(IOUtils.class);
 
 
     /**
@@ -145,11 +148,11 @@ public class IOUtils {
 
         } else if (term != null && term.contains(":")) {
 
-            System.out.println("Getting ontology object for " + term);
+            logger.debug("Getting ontology object for " + term);
 
             OntologyTerm oo = OntologyManager.getOntologyTerm(term);
 
-            System.out.println("oo = " + oo);
+            logger.debug("oo = " + oo);
             tmpTerm = term;
             tmpAccession = "";
             tmpSourceRefs = "";
@@ -159,7 +162,7 @@ public class IOUtils {
                 tmpAccession = ISAcreatorProperties.getProperty("ontologyTermURI").equals("true") ? oo.getOntologyTermURI() : oo.getOntologyTermAccession();
                 tmpSourceRefs = oo.getOntologySource();
 
-                System.out.println("Got ontology term... good times. Term is now " + tmpTerm);
+                logger.debug("Got ontology term... good times. Term is now " + tmpTerm);
             } else {
                 if (term.contains(":")) {
                     String[] termAndSource = term.split(":");

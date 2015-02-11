@@ -1,7 +1,8 @@
 package org.isatools.isacreator.io.importisa;
 
 import org.apache.commons.collections15.OrderedMap;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.isatools.errorreporter.model.ErrorLevel;
 import org.isatools.errorreporter.model.ErrorMessage;
 import org.isatools.errorreporter.model.FileType;
@@ -39,7 +40,7 @@ import java.util.List;
  */
 public abstract class ISAtabImporter {
 
-    private static final Logger log = Logger.getLogger(ISAtabImporter.class);
+    private static final Logger logger = LoggerFactory.getLogger(ISAtabImporter.class);
 
     protected Investigation investigation;
     protected List<ISAFileErrorReport> errors;
@@ -108,7 +109,7 @@ public abstract class ISAtabImporter {
             parentDir = investigationFile.getAbsolutePath();
         }
 
-        log.info("Parent directory is -> " + parentDir);
+        logger.info("Parent directory is -> " + parentDir);
 
         boolean investigationFileFound = false;
 
@@ -145,8 +146,8 @@ public abstract class ISAtabImporter {
                 messages.addAll(investigationFileImporter.getMessages());
 
                 if (investigationFileImport.fst) {
-                    log.info("Import of Investigation in " + investigationFile.getPath() + " was successful...");
-                    log.info("Proceeding to map to Investigation...");
+                    logger.info("Import of Investigation in " + investigationFile.getPath() + " was successful...");
+                    logger.info("Proceeding to map to Investigation...");
 
                     mapper = new StructureToInvestigationMapper();
 
@@ -207,7 +208,7 @@ public abstract class ISAtabImporter {
                     return false;
                 }
 
-                System.out.println("********************\n"+OntologyManager.getURIMappingInfo());
+                logger.debug("********************\n" + OntologyManager.getURIMappingInfo());
                 String mappingInfo = OntologyManager.getURIMappingInfoHTML();
                 if (mappingInfo!=null && !mappingInfo.equals(""))
                     messages.add(new ErrorMessage(ErrorLevel.INFO, mappingInfo));
@@ -240,7 +241,7 @@ public abstract class ISAtabImporter {
             Study study = investigation.getStudies().get(studyIdentifier);
 
 
-            System.out.println("Processing " + studyIdentifier);
+            logger.debug("Processing " + studyIdentifier);
 
             // here we process the study sample file
             TableReferenceObject studySampleReference = ConfigurationManager.selectTROForUserSelection(
@@ -314,7 +315,7 @@ public abstract class ISAtabImporter {
                 } else {
                     messages.add(new ErrorMessage(ErrorLevel.WARNING, "Assay with measurement " + assay.getMeasurementEndpoint() + " & technology " + assay.getTechnologyType() +
                             " is not recognised. Please ensure you are using the correct configuration!"));
-                    log.info("Assay with measurement " + assay.getMeasurementEndpoint() + " & technology " + assay.getTechnologyType() +
+                    logger.info("Assay with measurement " + assay.getMeasurementEndpoint() + " & technology " + assay.getTechnologyType() +
                             " is not recognised. Please ensure you are using the correct configuration!");
                     noReferenceobjectFound.add(assay);
 
@@ -327,7 +328,7 @@ public abstract class ISAtabImporter {
             }
 
             for (Assay toRemove : noReferenceobjectFound) {
-                log.info("Assay " + toRemove.getAssayReference() + " will not be loaded into ISAcreator because there is no configuration to define it...");
+                logger.info("Assay " + toRemove.getAssayReference() + " will not be loaded into ISAcreator because there is no configuration to define it...");
                 study.removeAssay(toRemove.getAssayReference());
             }
         }

@@ -64,7 +64,7 @@ public class InvestigationImportTest implements CommonTestIO {
 
         ConfigurationManager.loadConfigurations(baseDir + DEFAULT_CONFIG_DIR);
 
-        System.out.println("__TESTING loadInvestigationFile() on " + testInvestigationFile.getName());
+        logger.debug("__TESTING loadInvestigationFile() on " + testInvestigationFile.getName());
 
         InvestigationImport importer = new InvestigationImport();
         try {
@@ -80,21 +80,21 @@ public class InvestigationImportTest implements CommonTestIO {
 
                 Investigation investigation = investigationImport.snd;
 
-                System.out.println("Investigation title: " + investigation.getInvestigationTitle());
+                logger.debug("Investigation title: " + investigation.getInvestigationTitle());
 
-                System.out.println("Number of studies: " + investigation.getStudies().size());
+                logger.debug("Number of studies: " + investigation.getStudies().size());
 
-                System.out.println("Getting investigation publications:");
+                logger.debug("Getting investigation publications:");
 
                 for (Publication publication : investigation.getPublications()) {
-                    System.out.println("Publication identifier: " + publication.getIdentifier());
-                    System.out.println("Publication title: " + publication.getPublicationTitle());
+                    logger.debug("Publication identifier: " + publication.getIdentifier());
+                    logger.debug("Publication title: " + publication.getPublicationTitle());
                 }
             } else {
-                System.out.println("The following problems were found:");
+                logger.debug("The following problems were found:");
 
                 for (ErrorMessage message : mapper.getMessages()) {
-                    System.out.println("\t" + message.getMessage());
+                    logger.debug("\t" + message.getMessage());
                 }
             }
 

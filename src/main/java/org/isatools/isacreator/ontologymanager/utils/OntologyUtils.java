@@ -7,6 +7,8 @@ import org.isatools.isacreator.ontologymanager.OntologySourceRefObject;
 import org.isatools.isacreator.ontologymanager.bioportal.model.OntologyPortal;
 import org.isatools.isacreator.ontologymanager.common.OntologyTerm;
 import org.isatools.isacreator.utils.StringProcessing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by the ISA team
@@ -17,6 +19,8 @@ import org.isatools.isacreator.utils.StringProcessing;
  *         Time: 17:37
  */
 public class OntologyUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(OntologyUtils.class);
 
     public static OntologyPortal getSourceOntologyPortal(Ontology ontology) {
         return getSourceOntologyPortalByVersionAndId(ontology);
@@ -55,9 +59,9 @@ public class OntologyUtils {
     }
 
     public static OntologyTerm convertOntologyBranchToOntologyTerm(OntologyBranch branch, OntologySourceRefObject ontologySource) {
-        System.out.println(branch.getBranchIdentifier());
-        System.out.println("Source Name = " + ontologySource.getSourceName());
-        System.out.println("Source Description = " + ontologySource.getSourceDescription());
+        logger.debug(branch.getBranchIdentifier());
+        logger.debug("Source Name = " + ontologySource.getSourceName());
+        logger.debug("Source Description = " + ontologySource.getSourceDescription());
         return new OntologyTerm(branch.getBranchName(),branch.getBranchIdentifier(), branch.getBranchIdentifier(), ontologySource);
     }
 }

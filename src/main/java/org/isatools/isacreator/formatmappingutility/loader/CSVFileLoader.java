@@ -39,7 +39,8 @@ package org.isatools.isacreator.formatmappingutility.loader;
 
 import au.com.bytecode.opencsv.CSVReader;
 import org.apache.commons.collections15.map.ListOrderedMap;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.isatools.isacreator.settings.ISAcreatorProperties;
 
 import java.io.File;
@@ -55,7 +56,7 @@ import java.util.Map;
 
 
 public class CSVFileLoader implements FileLoader {
-    private static final Logger log = Logger.getLogger(CSVFileLoader.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(CSVFileLoader.class.getName());
     private char delimiter;
     private int readerUsed;
 

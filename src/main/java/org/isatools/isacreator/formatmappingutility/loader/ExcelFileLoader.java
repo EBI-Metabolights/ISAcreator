@@ -43,6 +43,8 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import org.apache.commons.collections15.map.ListOrderedMap;
 import org.isatools.isacreator.settings.ISAcreatorProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +61,7 @@ import java.util.Map;
 
 public class ExcelFileLoader implements FileLoader {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExcelFileLoader.class);
     private Map<String, Sheet> sheetReaders = new HashMap<String, Sheet>();
 
     public Map<String, String[]> getColumnNames(File f) {
@@ -78,9 +81,9 @@ public class ExcelFileLoader implements FileLoader {
                     int rowStart;
                     try {
                         rowStart = Integer.parseInt(ISAcreatorProperties.getProperty("isacreator.rowOffset")) - 1;
-                        System.out.println("Row offset is: " + rowStart);
+                        logger.debug("Row offset is: " + rowStart);
                     } catch (NumberFormatException nfe) {
-                        System.out.println(nfe.getMessage());
+                        logger.debug(nfe.getMessage());
                         rowStart = 0;
                     }
 
