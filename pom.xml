@@ -43,7 +43,7 @@
     </licenses>
 
     <scm>
-        <url>http://www.github.com/ISA-tools/ISAcreator</url>
+        <url>http://github.com/EBI-Metabolights/ISAcreator</url>
     </scm>
 
     <repositories>
@@ -70,8 +70,15 @@
     </repositories>
 
     <build>
-        <plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>1.0-beta-6</version>
+            </extension>
+        </extensions>
 
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -341,7 +348,17 @@
     </profiles>
 
     <distributionManagement>
+        <repository>
+            <id>chebi-repo</id>
+            <name>ChEBI Internal Repository</name>
+            <url>scp://prod.ebi.ac.uk/ebi/sp/pro1/chebi/maven2_repo</url>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>chebi-repo</id>
+            <name>ChEBI Internal Repository</name>
+            <url>scp://prod.ebi.ac.uk:/ebi/sp/pro1/chebi/maven2_repo</url>
+        </snapshotRepository>
     </distributionManagement>
-
 
 </project>
