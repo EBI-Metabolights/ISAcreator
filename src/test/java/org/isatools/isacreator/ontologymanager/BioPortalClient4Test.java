@@ -3,6 +3,8 @@ package org.isatools.isacreator.ontologymanager;
 import org.isatools.isacreator.configuration.Ontology;
 import org.isatools.isacreator.ontologymanager.common.OntologyTerm;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,6 +17,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class BioPortalClient4Test {
 
+    private static final Logger logger = LoggerFactory.getLogger(BioPortalClient4Test.class);
     private BioPortal4Client client = new BioPortal4Client();
     private String testOntologySource = "EFO";
     private String testTermAccession = "http://www.ebi.ac.uk/efo/EFO_0000428";
@@ -143,7 +146,7 @@ public class BioPortalClient4Test {
         assertTrue("No parents roots found for " + testTermAccession, parentTerms.size() > 0);
 
         for (OntologyTerm term : parentTerms.values()) {
-            logger.debug(term);
+            logger.debug(term.toString());
         }
 
         logger.debug("Found " + parentTerms.size() + " parents for 45781");
@@ -158,7 +161,7 @@ public class BioPortalClient4Test {
         assertTrue("No children found for " + testTermAccession, childTerms.size() > 0);
 
         for (OntologyTerm term : childTerms.values()) {
-            logger.debug(term);
+            logger.debug(term.toString());
         }
 
         logger.debug("Found " + childTerms.size() + " children for information entity in " + testOntologySource);

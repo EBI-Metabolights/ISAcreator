@@ -29,6 +29,7 @@ import static junit.framework.Assert.assertTrue;
  * @author <a href="mailto:alejandra.gonzalez.beltran@gmail.com">Alejandra Gonzalez-Beltran</a>
  */
 public class ISAtabFilesImporterTest implements CommonTestIO {
+    private static final Logger logger = LoggerFactory.getLogger(ISAtabFilesImporterTest.class);
 
     private String configDir = null;
     private static Logger log = LoggerFactory.getLogger(ISAtabFilesImporterTest.class);

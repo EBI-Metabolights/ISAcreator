@@ -1,8 +1,8 @@
 package org.isatools.isacreator.configuration.io;
 
-import org.isatools.isatab.configurator.schema.UnitFieldType;
-import org.isatools.isatab.configurator.schema.impl.UnitFieldTypeImpl;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ConfigurationLoadTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(ConfigurationLoadTest.class);
     @Test
     public void configurationTestLoad() {
         logger.debug("_____TESTING configurationTestLoad()");

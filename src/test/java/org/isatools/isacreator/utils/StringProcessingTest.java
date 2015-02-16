@@ -1,6 +1,8 @@
 package org.isatools.isacreator.utils;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -12,6 +14,7 @@ import static junit.framework.Assert.assertEquals;
  * To change this template use File | Settings | File Templates.
  */
 public class StringProcessingTest {
+    private static final Logger logger = LoggerFactory.getLogger(StringProcessingTest.class);
 
     @Test
     public void testSpaceRemovalInQualifier() {
