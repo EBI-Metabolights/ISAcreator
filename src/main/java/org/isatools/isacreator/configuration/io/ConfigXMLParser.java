@@ -37,16 +37,14 @@
 
 package org.isatools.isacreator.configuration.io;
 
-import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-
 import org.isatools.isacreator.configuration.*;
-import org.isatools.isacreator.ontologymanager.OntologyManager;
-import org.isatools.isacreator.ontologymanager.OntologySourceRefObject;
 import org.isatools.isacreator.spreadsheet.model.TableReferenceObject;
 import org.isatools.isacreator.utils.StringProcessing;
 import org.isatools.isatab.configurator.schema.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +63,7 @@ import java.util.Map;
 
 
 public class ConfigXMLParser {
-    private static Logger log = Logger.getLogger(ConfigXMLParser.class.getName());
+    private static Logger log = LoggerFactory.getLogger(ConfigXMLParser.class.getName());
 
     private ConfigurationLoadingSource loadingSource;
     private String configDir;

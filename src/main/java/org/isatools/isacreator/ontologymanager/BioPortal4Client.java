@@ -1,11 +1,12 @@
 package org.isatools.isacreator.ontologymanager;
 
-import org.apache.log4j.Logger;
 import org.isatools.isacreator.configuration.Ontology;
 import org.isatools.isacreator.configuration.RecommendedOntology;
 import org.isatools.isacreator.ontologymanager.bioportal.io.AcceptedOntologies;
 import org.isatools.isacreator.ontologymanager.bioportal.jsonresulthandlers.BioPortalSearchResultHandler;
 import org.isatools.isacreator.ontologymanager.common.OntologyTerm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -16,7 +17,7 @@ import java.util.*;
  */
 public class BioPortal4Client implements OntologyService {
 
-    private static final Logger log = Logger.getLogger(BioPortal4Client.class);
+    private static final Logger log = LoggerFactory.getLogger(BioPortal4Client.class);
 
     public static final String DIRECT_ONTOLOGY_URL = "http://bioportal.bioontology.org/ontologies/";
     public static final String REST_URL = "http://data.bioontology.org/";

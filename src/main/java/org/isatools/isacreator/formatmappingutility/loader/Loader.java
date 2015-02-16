@@ -101,7 +101,8 @@ public class Loader {
                 return new CSVFileLoader(FileLoader.COMMA_DELIM);
             } else if (extension.equals(FileLoader.XLS_EXT)) {
                 recordType = "Excel (XLS) sheets";
-                return new ExcelFileLoader();
+                throw new NoAvailableLoaderException("Excel File loader removed for lite API");
+                //return new ExcelFileLoader();
             } else if (extension.equals(FileLoader.TXT_EXT)) {
                 recordType = "TAB Delimited (TEXT) files";
                 return new CSVFileLoader(FileLoader.TAB_DELIM);

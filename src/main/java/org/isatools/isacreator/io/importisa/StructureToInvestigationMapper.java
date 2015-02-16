@@ -40,7 +40,8 @@ package org.isatools.isacreator.io.importisa;
 import org.apache.commons.collections15.OrderedMap;
 import org.apache.commons.collections15.map.ListOrderedMap;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.isatools.errorreporter.model.ErrorLevel;
 import org.isatools.errorreporter.model.ErrorMessage;
 import org.isatools.isacreator.io.IOUtils;
@@ -64,7 +65,7 @@ import java.util.*;
  */
 public class StructureToInvestigationMapper {
 
-    private static Logger log = Logger.getLogger(StructureToInvestigationMapper.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(StructureToInvestigationMapper.class.getName());
 
 
     private List<OntologyTerm> ontologyTermsDefined;
@@ -88,7 +89,7 @@ public class StructureToInvestigationMapper {
             if (majorSection.contains("Investigation")) {
 
                 investigation = processInvestigation(investigationStructure.get(majorSection));
-                System.out.println(investigation.getInvestigationTitle());
+                logger.debug(investigation.getInvestigationTitle());
             }
 
             if (majorSection.contains("Study")) {
@@ -684,7 +685,7 @@ public class StructureToInvestigationMapper {
             if (studyNames.contains(study.getStudyId())) {
                 String message = "Duplicate study names found in investigation! Study with with ID : " + study.getStudyId() + " already exists!";
                 messages.add(new ErrorMessage(ErrorLevel.ERROR, message));
-                log.info(message);
+                logger.info(message);
                 return false;
             } else {
                 studyNames.add(study.getStudyId());
@@ -694,7 +695,7 @@ public class StructureToInvestigationMapper {
                 if (assayNames.contains(assay.getAssayReference())) {
                     String message = "Duplicate assay found in investigation! Assay with with name : " + assay.getAssayReference() + " already exists!";
                     messages.add(new ErrorMessage(ErrorLevel.ERROR, message));
-                    log.info(message);
+                    logger.info(message);
                     return false;
                 } else {
                     assayNames.add(assay.getAssayReference());
@@ -717,7 +718,7 @@ public class StructureToInvestigationMapper {
         for (OntologyTerm oo : ontologyTermsDefined) {
             if (!definedOntologySources.contains(oo.getOntologySource()) &&
                     !oo.getOntologySource().equals("")) {
-                System.out.println(oo.getShortForm());
+                logger.debug(oo.getShortForm());
                 if (!GeneralUtils.isValueURL(oo.getShortForm())) {
                     missingOntologyObjects.add(oo.getOntologySource());
                 }
@@ -732,7 +733,7 @@ public class StructureToInvestigationMapper {
             }
 
             messages.add(new ErrorMessage(ErrorLevel.ERROR, "Some ontology sources are not defined in the ONTOLOGY SOURCE REFERENCE section -> " + missing));
-            log.info("Some ontology sources are not defined in the ONTOLOGY SOURCE REFERENCE section -> " + missing);
+            logger.info("Some ontology sources are not defined in the ONTOLOGY SOURCE REFERENCE section -> " + missing);
             return false;
         }
 

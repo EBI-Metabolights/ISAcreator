@@ -2,13 +2,13 @@ package org.isatools.isacreator.ontologymanager.bioportal.io;
 
 import org.isatools.isacreator.configuration.Ontology;
 import org.isatools.isacreator.ontologymanager.BioPortal4Client;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Comment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.*;
 import uk.ac.ebi.utils.xml.XPathReader;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -17,12 +17,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Loads a file defining allowed BioPortal ontologies into a file.
@@ -35,15 +35,16 @@ public class AcceptedOntologiesLoader {
 
     private static final String FILE = "ProgramData/cache/bioportal-ontology-detail.cache";
 
+    private static final Logger logger = LoggerFactory.getLogger(AcceptedOntologiesLoader.class);
 
     public static void populateAcceptedOntologies() {
 
-        System.out.println("_____populateAcceptedOntologies()____");
+        logger.debug("_____populateAcceptedOntologies()____");
         BioPortal4Client client = new BioPortal4Client();
 
         Collection<Ontology> ontologies = client.getAllOntologies();
 
-        System.out.println("Found " + ontologies.size() + " ontologies \n");
+        logger.debug("Found " + ontologies.size() + " ontologies \n");
 
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();

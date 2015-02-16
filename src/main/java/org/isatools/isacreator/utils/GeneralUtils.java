@@ -37,16 +37,14 @@
 
 package org.isatools.isacreator.utils;
 
-import org.apache.log4j.Logger;
 import org.isatools.isacreator.configuration.FieldObject;
 import org.isatools.isacreator.model.GeneralFieldTypes;
 import org.isatools.isacreator.spreadsheet.model.TableReferenceObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.ebi.utils.io.DownloadUtils;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +54,7 @@ import java.util.zip.ZipFile;
 
 public class GeneralUtils {
 
-    private static final Logger log = Logger.getLogger(GeneralUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(GeneralUtils.class);
     public static final int BUFFER_SIZE = 1024;
 
 
@@ -107,10 +105,10 @@ public class GeneralUtils {
         String localTmpDirectory = System.getProperty("java.io.tmpdir") + File.separator +  name + File.separator + System.currentTimeMillis() + File.separator;
         boolean success = new File(localTmpDirectory).mkdirs();
         if (success) {
-            System.out.println("Directory: "+ localTmpDirectory + " created");
+            logger.debug("Directory: "+ localTmpDirectory + " created");
             return localTmpDirectory;
         }else{
-            System.out.println("Could not create "+localTmpDirectory);
+            logger.debug("Could not create "+localTmpDirectory);
             System.exit(-1);
         }
         return null;
@@ -175,10 +173,10 @@ public class GeneralUtils {
         String tmpDirectory = GeneralUtils.createTmpDirectory("Configurations");
         String downloadedFile = tmpDirectory+"config.zip";
         boolean downloaded = DownloadUtils.downloadFile(configurationFilesLocation, downloadedFile);
-        System.out.println("downloadedFile="+downloadedFile);
+        logger.debug("downloadedFile="+downloadedFile);
         try{
             String unzipped = GeneralUtils.unzip(downloadedFile);
-            System.out.println("unzipped="+unzipped);
+            logger.debug("unzipped="+unzipped);
         }catch(IOException ex){
             ex.printStackTrace();
 

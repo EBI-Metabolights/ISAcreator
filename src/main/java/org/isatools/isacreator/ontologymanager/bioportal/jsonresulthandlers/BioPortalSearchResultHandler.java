@@ -15,6 +15,8 @@ import org.isatools.isacreator.ontologymanager.OntologyManager;
 import org.isatools.isacreator.ontologymanager.OntologySourceRefObject;
 import org.isatools.isacreator.ontologymanager.bioportal.io.AcceptedOntologies;
 import org.isatools.isacreator.ontologymanager.common.OntologyTerm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,7 +30,7 @@ public class BioPortalSearchResultHandler {
     public static final String API_KEY = "fd88ee35-6995-475d-b15a-85f1b9dd7a42";
     public static final String PARENTS = "ancestors";
     public static final String CHILDREN = "children";
-
+    private static final Logger logger = LoggerFactory.getLogger(BioPortalSearchResultHandler.class);
 
     public Map<String, List<OntologyTerm>> getSearchResults(String term, String ontologyIds, String subtree) {
         return getSearchResults(term, ontologyIds, subtree, false);
@@ -136,7 +138,7 @@ public class BioPortalSearchResultHandler {
             long startTime = System.currentTimeMillis();
             int statusCode = client.executeMethod(method);
             if (statusCode != -1) {
-                System.out.println("It took " + (System.currentTimeMillis() - startTime) + "ms to do that query...");
+                logger.debug("It took " + (System.currentTimeMillis() - startTime) + "ms to do that query...");
                 String contents = method.getResponseBodyAsString();
                 method.releaseConnection();
                 return contents;
@@ -238,7 +240,7 @@ public class BioPortalSearchResultHandler {
             extractDefinitionFromOntologyTerm(obj, ontologyTerm);
             extractSynonymsFromOntologyTerm(obj, ontologyTerm);
 
-            System.out.println(ontologyTerm.getOntologyTermName() + " - " + ontologyTerm.getOntologyTermAccession() + " - " + ontologyTerm.getOntologyTermURI());
+            logger.debug(ontologyTerm.getOntologyTermName() + " - " + ontologyTerm.getOntologyTermAccession() + " - " + ontologyTerm.getOntologyTermURI());
 
             return ontologyTerm;
         } else {
@@ -258,7 +260,7 @@ public class BioPortalSearchResultHandler {
 
             GetMethod method = new GetMethod(url);
 
-            System.out.println(method.getURI().toString());
+            logger.debug(method.getURI().toString());
             try {
                 setHostConfiguration(client);
             } catch (Exception e) {
@@ -268,7 +270,7 @@ public class BioPortalSearchResultHandler {
             int statusCode = client.executeMethod(method);
             if (statusCode != -1) {
                 String contents = method.getResponseBodyAsString();
-                System.out.println(contents);
+                logger.debug(contents);
                 method.releaseConnection();
                 return contents;
             }
@@ -284,7 +286,7 @@ public class BioPortalSearchResultHandler {
         Map<String, OntologyTerm> roots = new HashMap<String, OntologyTerm>();
 
         String queryContents = generalQueryEndpoint(BioPortal4Client.REST_URL + "ontologies/" + ontologyAbbreviation + "/classes/roots?apikey=" + API_KEY);
-        System.out.println(BioPortal4Client.REST_URL + "ontologies/" + ontologyAbbreviation + "/classes/roots?apikey=" + API_KEY);
+        logger.debug(BioPortal4Client.REST_URL + "ontologies/" + ontologyAbbreviation + "/classes/roots?apikey=" + API_KEY);
 
         JSONArray ontologyTerms = (JSONArray) JSONValue.parse(queryContents);
 

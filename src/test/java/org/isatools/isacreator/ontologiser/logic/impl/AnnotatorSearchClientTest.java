@@ -2,6 +2,8 @@ package org.isatools.isacreator.ontologiser.logic.impl;
 
 import org.isatools.isacreator.ontologymanager.bioportal.model.AnnotatorResult;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -11,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 
 public class AnnotatorSearchClientTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(AnnotatorSearchClientTest.class);
     @Test
     public void testAnnotatorClient() {
-         System.out.println("_____Testing NCBO Annotator search client____");
+         logger.debug("_____Testing NCBO Annotator search client____");
         AnnotatorSearchClient sc = new AnnotatorSearchClient();
 
         Set<String> testTerms = new HashSet<String>();
@@ -27,9 +29,9 @@ public class AnnotatorSearchClientTest {
         Map<String, Map<String, AnnotatorResult>> result = sc.searchForTerms(testTerms);
 
         for (String key : result.keySet()) {
-            System.out.println(key + " matched:");
+            logger.debug(key + " matched:");
             for (String ontologyId : result.get(key).keySet()) {
-                System.out.println("\t" + ontologyId + " -> " + result.get(key).get(ontologyId).getOntologyTerm().getOntologyTermName() + " (" + result.get(key).get(ontologyId).getOntologySource().getOntologyDisplayLabel() + ")");
+                logger.debug("\t" + ontologyId + " -> " + result.get(key).get(ontologyId).getOntologyTerm().getOntologyTermName() + " (" + result.get(key).get(ontologyId).getOntologySource().getOntologyDisplayLabel() + ")");
             }
         }
 

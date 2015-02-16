@@ -1,8 +1,8 @@
 package org.isatools.isacreator.configuration.io;
 
-import org.isatools.isatab.configurator.schema.UnitFieldType;
-import org.isatools.isatab.configurator.schema.impl.UnitFieldTypeImpl;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -10,9 +10,10 @@ import static org.junit.Assert.assertTrue;
 
 public class ConfigurationLoadTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(ConfigurationLoadTest.class);
     @Test
     public void configurationTestLoad() {
-        System.out.println("_____TESTING configurationTestLoad()");
+        logger.debug("_____TESTING configurationTestLoad()");
 
         File configurationDirectory = new File("Configurations");
         if(configurationDirectory.exists() && configurationDirectory.isDirectory()) {
@@ -26,12 +27,12 @@ public class ConfigurationLoadTest {
 
                     ConfigXMLParser parser = new ConfigXMLParser(ConfigurationLoadingSource.ISACREATOR, file.getAbsolutePath());
 
-                    System.out.println("___loading configuration " + file.getName().toLowerCase());
+                    logger.debug("___loading configuration " + file.getName().toLowerCase());
                     parser.loadConfiguration();
 
                     assertTrue("Oh, the configuration size is 0!", parser.getTables().size() > 0);
 
-                    System.out.println("Configuration " + file.getName().toLowerCase() +  " loaded successfully");
+                    logger.debug("Configuration " + file.getName().toLowerCase() +  " loaded successfully");
                 }
             }
         }
