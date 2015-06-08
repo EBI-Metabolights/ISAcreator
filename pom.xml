@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.isatools</groupId>
     <artifactId>ISAcreator-api</artifactId>
-    <version>1.7.7</version>
+    <version>1.7.7.1</version>
     <name>ISAcreator API</name>
     <description>Light version of ISAcreator unbundled to be used as an ISAtab API to load files.</description>
     <url>http://www.isa-tools.org</url>
