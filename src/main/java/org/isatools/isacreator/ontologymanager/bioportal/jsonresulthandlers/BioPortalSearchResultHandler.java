@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BioPortalSearchResultHandler {
+public class    BioPortalSearchResultHandler {
 
     public static final String API_KEY = "fd88ee35-6995-475d-b15a-85f1b9dd7a42";
     public static final String PARENTS = "ancestors";
@@ -152,8 +152,13 @@ public class BioPortalSearchResultHandler {
 
     public Map<String, Ontology> getAllOntologies() {
 
+        logger.debug("Getting all the ontologies.");
+
         Map<String, Ontology> result = new HashMap<String, Ontology>();
         String content = queryOntologyEndpoint();
+
+        logger.debug("All ontologies are:\n {}", content);
+
         JSONArray obj = (JSONArray) JSONValue.parse(content);
 
         for (Object resultItem : obj) {
@@ -187,39 +192,69 @@ public class BioPortalSearchResultHandler {
 
 
     public String queryOntologyEndpoint() {
+
+        logger.debug("queryOntologyEndpoint() invoked.");
         try {
             HttpClient client = new HttpClient();
 
+            logger.debug("HttpClient instantiated.");
+
+            String bioPortalURL = BioPortal4Client.REST_URL + "submissions?apikey=" + API_KEY;
+
+            logger.debug("bioPortalURL: {}", bioPortalURL);
+
             //http://data.bioontology.org/submissions
-            GetMethod method = new GetMethod(BioPortal4Client.REST_URL + "submissions?apikey=" + API_KEY);
+            GetMethod method = new GetMethod(bioPortalURL);
+
+            logger.debug("GetMethod instantiated");
 
             try {
                 setHostConfiguration(client);
+
             } catch (Exception e) {
-                System.err.println("Problem encountered setting host configuration for ontology search");
+                logger.error("Problem encountered setting host configuration for ontology search", e);
             }
 
             int statusCode = client.executeMethod(method);
+
+
             if (statusCode != -1) {
                 String contents = method.getResponseBodyAsString();
                 method.releaseConnection();
+
+                logger.debug("queryOntologyEndpoint() returning {}", contents);
                 return contents;
+            } else {
+                logger.debug("Status code returned is {}.", statusCode);
             }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Couldn't query the ontology endpoint",e);
         }
 
+        logger.debug("queryOntologyEndpoint() returning null");
         return null;
     }
 
     private void setHostConfiguration(HttpClient client) {
+
+        logger.debug("setHostConfiguration() invoked.");
+
         HostConfiguration configuration = new HostConfiguration();
         configuration.setHost("http://data.bioontology.org");
         String proxyPort = System.getProperty("http.proxyPort");
-        if (proxyPort == null)
+
+        if (proxyPort == null) {
+            logger.debug("No proxy port.");
             return;
+        }
+
+        logger.debug("Setting proxy port: {}", proxyPort );
+
         configuration.setProxy(System.getProperty("http.proxyHost"), Integer.valueOf(System.getProperty("http.proxyPort")));
         client.setHostConfiguration(configuration);
+
+        logger.debug("Client configured with proxy: {}:{}", System.getProperty("http.proxyHost"), proxyPort);
     }
 
     public OntologyTerm getTermMetadata(String termId, String ontologyId) {

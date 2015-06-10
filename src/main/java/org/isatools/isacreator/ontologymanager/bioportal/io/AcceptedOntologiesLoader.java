@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class AcceptedOntologiesLoader {
 
-    private static final String FILE = "ProgramData/cache/bioportal-ontology-detail.cache";
+    public static final String FILE = "ProgramData/cache/bioportal-ontology-detail.cache";
 
     private static final Logger logger = LoggerFactory.getLogger(AcceptedOntologiesLoader.class);
 
@@ -42,9 +42,21 @@ public class AcceptedOntologiesLoader {
         logger.debug("_____populateAcceptedOntologies()____");
         BioPortal4Client client = new BioPortal4Client();
 
-        Collection<Ontology> ontologies = client.getAllOntologies();
+        logger.debug("Calling BioPortal4Client.getAllOntologies()");
 
-        logger.debug("Found " + ontologies.size() + " ontologies \n");
+        Collection<Ontology> ontologies = null;
+        try {
+            File cacheFile = new File(FILE);
+            logger.debug("Cache file is here: " + cacheFile.getAbsolutePath());
+
+            ontologies = client.getAllOntologies();
+
+            logger.debug("Found " + ontologies.size() + " ontologies \n");
+
+        } catch (Exception e){
+            logger.error("Couldn't get all ontologies: {} " , e.getMessage(), e);
+        }
+
 
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -99,6 +111,8 @@ public class AcceptedOntologiesLoader {
 
             File outputFile = new File(fullPath);
 
+            logger.debug("Ontology cache output file is {}", fullPath);
+
             StreamResult result = new StreamResult(outputFile.getAbsolutePath());
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
@@ -117,9 +131,15 @@ public class AcceptedOntologiesLoader {
     public static Map<String, Ontology> getAcceptedOntologies() {
         Map<String, Ontology> acceptedOntologies = new HashMap<String, Ontology>();
 
-        if(!new File(FILE).exists()) {
+        logger.debug("Getting accepted ontologies into {}", FILE);
+
+        File cache = new File(FILE);
+
+        if(!cache.exists()) {
             // then create it
-            new File(FILE).getParentFile().mkdirs();
+
+            logger.debug("Creating file bioportal parent folder {}",cache.getParentFile().getAbsolutePath() );
+            cache.getParentFile().mkdirs();
             populateAcceptedOntologies();
         }
 
@@ -149,8 +169,10 @@ public class AcceptedOntologiesLoader {
     }
 
     public static void main(String[] args) {
+
         //getAcceptedOntologies();
         populateAcceptedOntologies();
+
     }
 
 }

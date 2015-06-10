@@ -40,8 +40,13 @@ package org.isatools.isacreator.ontologymanager.bioportal.io;
 
 import org.apache.commons.lang.StringUtils;
 import org.isatools.isacreator.configuration.Ontology;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * AcceptedOntologies
@@ -52,12 +57,19 @@ import java.util.*;
 public class AcceptedOntologies {
 
     private static Map<String, Ontology> acceptedOntologies;
+    private static final Logger logger = LoggerFactory.getLogger(AcceptedOntologies.class);
 
     // This is used to cache lookups on ontology sources, e.g. EFO to their equivalent ID in BioPortal
     private static Map<String,String> ontologySourceToIDCache;
 
     static {
-        updateAcceptedOntologies();
+
+        try {
+            updateAcceptedOntologies();
+        } catch (Throwable t) {
+            logger.error("Couldn't update Accepted ontologies: ", t);
+        }
+
     }
 
     public static void updateAcceptedOntologies() {

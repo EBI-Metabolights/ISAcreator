@@ -29,6 +29,8 @@ public class BioPortal4Client implements OntologyService {
     public BioPortal4Client() {
         this.handler = new BioPortalSearchResultHandler();
         this.cachedNodeChildrenQueries = new HashMap<String, Map<String, OntologyTerm>>();
+
+        log.debug("Bioportal4Client instantiated");
     }
 
     public Map<String, String> getOntologyNames() {
@@ -127,6 +129,11 @@ public class BioPortal4Client implements OntologyService {
     }
 
     public Collection<Ontology> getAllOntologies() {
+
+        if (handler == null) {
+            log.debug("handler null at getAllOntologies()");
+        }
+
         return handler.getAllOntologies().values();
     }
 
